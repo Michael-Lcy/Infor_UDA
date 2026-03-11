@@ -1,0 +1,2 @@
+/root/miniconda3/lib/python3.8/site-packages/torchvision/transforms/functional.py:984: UserWarning: Argument resample is deprecated and will be removed since v0.10.0. Please, use interpolation instead
+  warnings.warn(

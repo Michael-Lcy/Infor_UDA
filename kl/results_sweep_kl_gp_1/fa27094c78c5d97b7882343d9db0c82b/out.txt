@@ -1,0 +1,70 @@
+Environment:
+	Python: 3.8.10
+	PyTorch: 1.10.0+cu113
+	Torchvision: 0.11.1+cu113
+	CUDA: 11.3
+	CUDNN: 8200
+	NumPy: 1.21.4
+	PIL: 8.4.0
+Args:
+	algorithm: KL_GP
+	checkpoint_freq: None
+	data_dir: /root/data
+	dataset: RotatedMNIST
+	epochs: None
+	holdout_fraction: 0.2
+	hparams: None
+	hparams_seed: 14
+	output_dir: ./results_sweep_kl_gp_1/fa27094c78c5d97b7882343d9db0c82b
+	save_model_every_checkpoint: False
+	seed: 70918424
+	skip_model_save: False
+	steps: None
+	task: domain_adaptation
+	test_envs: [5]
+	train_envs: [0]
+	trial_seed: 1
+	uda_holdout_fraction: 0
+HParams:
+	augment_softmax: 0.0
+	batch_size: 64
+	class_balanced: False
+	data_augmentation: True
+	grad_penalty: 0.8405547116108637
+	kl_reg: 0.03854719947970516
+	kl_reg_aux: 0.03565434574633833
+	lr: 0.0008001079418286794
+	nonlinear_classifier: True
+	num_samples: 20
+	resnet18: True
+	resnet_dropout: 0.1
+	specify_zdim: True
+	weight_decay: 0.0
+	z_dim: 512
+cuda
+/root/miniconda3/lib/python3.8/site-packages/torchvision/transforms/functional.py:984: UserWarning: Argument resample is deprecated and will be removed since v0.10.0. Please, use interpolation instead
+  warnings.warn(
+env0_out_acc  env5_in_acc   env5_out_acc  epoch         kl            kl_aux        loss          penalty       step          step_time    
+0.0990141449  0.0972891889  0.1003000429  0.0000000000  2.8395280838  2.3728351593  2.3095238209  11.505401611  0             0.1656198502 
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/root/miniconda3/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/root/kl/scripts/train.py", line 236, in <module>
+    step_vals = algorithm.update(minibatches_device, uda_device)
+  File "/root/kl/algorithms.py", line 265, in update
+    z_dist = dist.Independent(dist.normal.Normal(z_mu,z_sigma),1)
+  File "/root/miniconda3/lib/python3.8/site-packages/torch/distributions/normal.py", line 50, in __init__
+    super(Normal, self).__init__(batch_shape, validate_args=validate_args)
+  File "/root/miniconda3/lib/python3.8/site-packages/torch/distributions/distribution.py", line 55, in __init__
+    raise ValueError(
+ValueError: Expected parameter loc (Tensor of shape (64, 512)) of distribution Normal(loc: torch.Size([64, 512]), scale: torch.Size([64, 512])) to satisfy the constraint Real(), but found invalid values:
+tensor([[nan, nan, nan,  ..., nan, nan, nan],
+        [nan, nan, nan,  ..., nan, nan, nan],
+        [nan, nan, nan,  ..., nan, nan, nan],
+        ...,
+        [nan, nan, nan,  ..., nan, nan, nan],
+        [nan, nan, nan,  ..., nan, nan, nan],
+        [nan, nan, nan,  ..., nan, nan, nan]], device='cuda:0',
+       grad_fn=<SliceBackward0>)
